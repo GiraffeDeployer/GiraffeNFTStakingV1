@@ -1,7 +1,7 @@
 import { ConnectEmbed } from "@/app/thirdweb";
 import { client } from "./client";
 import { chain } from "./chain";
-import Staking from "../../components/Staking"; // Assuming Staking is default exported
+import { Staking } from "../../components/Staking"; // Assuming Staking is default exported
 
 export default function Home() {
   return (
