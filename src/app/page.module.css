@@ -1,10 +1,9 @@
-/* Default styles for larger screens */
 .main {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 6rem; /* Adjust padding as needed */
+  padding: 6rem;
   min-height: 100vh;
 }
 
@@ -13,10 +12,10 @@
   justify-content: inherit;
   align-items: inherit;
   font-size: 0.85rem;
-  max-width: var(--max-width); /* Use variable for max-width */
+  max-width: var(--max-width);
   width: 100%;
   z-index: 2;
-  font-family: var(--font-mono); /* Use variable for font family */
+  font-family: var(--font-mono);
 }
 
 .description a {
@@ -42,9 +41,9 @@
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(25%, auto)); /* Responsive grid */
+  grid-template-columns: repeat(4, minmax(25%, auto));
   max-width: 100%;
-  width: var(--max-width); /* Use variable for max-width */
+  width: var(--max-width);
 }
 
 .card {
@@ -109,7 +108,6 @@
 .logo {
   position: relative;
 }
-
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   .card:hover {
@@ -128,21 +126,21 @@
   }
 }
 
-/* Mobile-specific styles */
+/* Mobile */
 @media (max-width: 700px) {
-  .main {
-    padding: 4rem; /* Adjust padding for smaller screens */
+  .content {
+    padding: 4rem;
   }
 
   .grid {
-    grid-template-columns: 1fr; /* Single column layout on mobile */
+    grid-template-columns: 1fr;
     margin-bottom: 120px;
-    max-width: 320px; /* Adjust max-width as needed */
+    max-width: 320px;
     text-align: center;
   }
 
   .card {
-    padding: 1rem 2.5rem; /* Adjust padding for cards on mobile */
+    padding: 1rem 2.5rem;
   }
 
   .card h2 {
@@ -150,20 +148,20 @@
   }
 
   .center {
-    padding: 8rem 0 6rem; /* Adjust padding for center content */
+    padding: 8rem 0 6rem;
   }
 
   .center::before {
-    transform: none; /* Disable before pseudo-element effect on mobile */
-    height: 300px; /* Adjust height as needed */
+    transform: none;
+    height: 300px;
   }
 
   .description {
-    font-size: 0.8rem; /* Adjust font size for description on mobile */
+    font-size: 0.8rem;
   }
 
   .description a {
-    padding: 1rem; /* Adjust padding for links in description */
+    padding: 1rem;
   }
 
   .description p,
@@ -195,7 +193,7 @@
     pointer-events: none;
     inset: auto 0 0;
     padding: 2rem;
-    height: 200px; /* Adjust height as needed */
+    height: 200px;
     background: linear-gradient(
       to bottom,
       transparent 0%,
@@ -208,11 +206,10 @@
 /* Tablet and Smaller Desktop */
 @media (min-width: 701px) and (max-width: 1120px) {
   .grid {
-    grid-template-columns: repeat(2, 50%); /* Two columns on tablets */
+    grid-template-columns: repeat(2, 50%);
   }
 }
 
-/* Dark mode adjustments */
 @media (prefers-color-scheme: dark) {
   .vercelLogo {
     filter: invert(1);
