@@ -12,7 +12,7 @@ export default function Home() {
       textAlign: "center",
       margin: "20px auto",
       width: "90%", // Adjust as needed
-      maxWidth: "500px", // Maximum width for larger screens
+      maxWidth: "100%", // Remove fixed maxWidth
     }}>
       <h1>Welcome to Giraffe NFT Minting & Staking App</h1>
       <ConnectEmbed
