@@ -1,7 +1,7 @@
 import { ConnectEmbed } from "@/app/thirdweb";
 import { client } from "./client";
 import { chain } from "./chain";
-import { Staking } from "../../components/Staking";
+import { Staking } from "../../components/Staking"; // Assuming Staking is default exported
 
 export default function Home() {
   return (
@@ -9,9 +9,9 @@ export default function Home() {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      textAlign: "center", // Center aligns text horizontally
+      textAlign: "center",
       margin: "20px auto",
-      width: "500px",
+      maxWidth: "90%", // Adjust as needed
     }}>
       <h1>Welcome to Giraffe NFT Minting & Staking App</h1>
       <ConnectEmbed
