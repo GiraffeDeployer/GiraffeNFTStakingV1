@@ -39,9 +39,9 @@ export const StakeRewards = () => {
     return (
         <div style={{ width: "100%", margin: "20px 0", display: "flex", flexDirection: "column" }}>
             {!isTokenBalanceLoading && (
-                <p>Wallet Balance: {toEther(BigInt(tokenBalance!.toString()))}</p>
+                <p>Giraffe Balance: {toEther(BigInt(tokenBalance!.toString()))}</p>
             )}
-            <h2 style={{ marginBottom: "20px"}}>Stake Rewards: {stakedInfo && toEther(BigInt(stakedInfo[1].toString()))}</h2>
+            <h2 style={{ marginBottom: "20px"}}>Giraffe Rewards: {stakedInfo && toEther(BigInt(stakedInfo[1].toString()))}</h2>
             <TransactionButton
                 transaction={() => (
                     prepareContractCall({
