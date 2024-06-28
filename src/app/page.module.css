@@ -1,21 +1,17 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  padding: 6rem;
+  padding: 2rem; /* Adjust padding for mobile */
   min-height: 100vh;
 }
 
 .description {
-  display: inherit;
-  justify-content: inherit;
-  align-items: inherit;
-  font-size: 0.85rem;
+  font-size: 0.8rem; /* Reduce font size for mobile */
   max-width: var(--max-width);
   width: 100%;
-  z-index: 2;
   font-family: var(--font-mono);
+  text-align: center; /* Center text */
 }
 
 .description a {
@@ -28,26 +24,23 @@
 .description p {
   position: relative;
   margin: 0;
-  padding: 1rem;
+  padding: 0.5rem; /* Reduce padding for mobile */
   background-color: rgba(var(--callout-rgb), 0.5);
   border: 1px solid rgba(var(--callout-border-rgb), 0.3);
   border-radius: var(--border-radius);
-}
-
-.code {
-  font-weight: 700;
-  font-family: var(--font-mono);
+  text-align: center; /* Center text */
 }
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(25%, auto));
-  max-width: 100%;
-  width: var(--max-width);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive grid */
+  gap: 1rem;
+  max-width: var(--max-width);
+  width: 100%;
 }
 
 .card {
-  padding: 1rem 1.2rem;
+  padding: 1rem;
   border-radius: var(--border-radius);
   background: rgba(var(--card-rgb), 0);
   border: 1px solid rgba(var(--card-border-rgb), 0);
@@ -61,7 +54,7 @@
 
 .card h2 {
   font-weight: 600;
-  margin-bottom: 0.7rem;
+  margin-bottom: 0.5rem;
 }
 
 .card p {
@@ -69,8 +62,6 @@
   opacity: 0.6;
   font-size: 0.9rem;
   line-height: 1.5;
-  max-width: 30ch;
-  text-wrap: balance;
 }
 
 .center {
@@ -84,15 +75,14 @@
 .center::before {
   background: var(--secondary-glow);
   border-radius: 50%;
-  width: 480px;
-  height: 360px;
-  margin-left: -400px;
+  width: 100%;
+  height: 100%;
 }
 
 .center::after {
   background: var(--primary-glow);
-  width: 240px;
-  height: 180px;
+  width: 50%;
+  height: 50%;
   z-index: -1;
 }
 
@@ -108,7 +98,7 @@
 .logo {
   position: relative;
 }
-/* Enable hover only on non-touch devices */
+
 @media (hover: hover) and (pointer: fine) {
   .card:hover {
     background: rgba(var(--card-rgb), 0.1);
@@ -127,7 +117,7 @@
 }
 
 /* Mobile */
-@media (max-width: 500px) {
+@media (max-width: 700px) {
   .content {
     padding: 4rem;
   }
@@ -203,10 +193,11 @@
   }
 }
 
+
 /* Tablet and Smaller Desktop */
 @media (min-width: 701px) and (max-width: 1120px) {
   .grid {
-    grid-template-columns: repeat(2, 50%);
+    grid-template-columns: repeat(2, 1fr); /* Two-column layout */
   }
 }
 
