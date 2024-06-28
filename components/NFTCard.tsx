@@ -21,10 +21,10 @@ export const NFTCard = ({ nft, refetch, refecthStakedInfo }: OwnedNFTsProps) => 
                 client={client}
                 src={nft.metadata.image}
                 style={{
-                    borderRadius: "10px",
-                    marginBottom: "10px",
-                    height: "200px",
-                    width: "200px"
+                    borderRadius: "15px",
+                    marginBottom: "15px",
+                    height: "150px",
+                    width: "150px"
                 }}
             />
             <p style={{ margin: "0 10px 10px 10px"}}>{nft.metadata.name}</p>
