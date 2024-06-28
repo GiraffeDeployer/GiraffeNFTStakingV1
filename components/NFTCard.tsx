@@ -16,7 +16,7 @@ export const NFTCard = ({ nft, refetch, refecthStakedInfo }: OwnedNFTsProps) => 
     const [isApproved, setIsApproved] = useState(false);
 
     return (
-        <div style={{ margin: "10px", position: "relative" }}>
+        <div style={{ margin: "10px" }}>
             <MediaRenderer
                 client={client}
                 src={nft.metadata.image}
@@ -50,8 +50,7 @@ export const NFTCard = ({ nft, refetch, refecthStakedInfo }: OwnedNFTsProps) => 
                     backgroundColor: "rgba(0, 0, 0, 0.5)",
                     display: "flex",
                     justifyContent: "center",
-                    alignItems: "center",
-                    zIndex: 999 // Ensure the modal appears above other content
+                    alignItems: "center"
                 }}>
                     <div style={{
                         minWidth: "300px",
@@ -77,7 +76,7 @@ export const NFTCard = ({ nft, refetch, refecthStakedInfo }: OwnedNFTsProps) => 
                                 }}
                             >Close</button>
                         </div>
-                        <h3 style={{ margin: "10px 0" }}>You are about to stake:</h3>
+                        <h3 style={{ margin: "10px 0" }}>You about to stake:</h3>
                         <MediaRenderer
                             client={client}
                             src={nft.metadata.image}
