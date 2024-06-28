@@ -1,68 +1,61 @@
-import React, { useEffect, useState } from "react";
-import {
-    TransactionButton,
-    useActiveAccount,
-    useReadContract,
-    prepareContractCall,
-} from "thirdweb/react";
+import { TransactionButton, useActiveAccount, useReadContract } from "thirdweb/react";
 import { REWARD_TOKEN_CONTRACT, STAKING_CONTRACT } from "../utils/contracts";
-import { toEther } from "thirdweb";
+import { prepareContractCall, toEther } from "thirdweb";
+import { useEffect } from "react";
 import { balanceOf } from "thirdweb/extensions/erc721";
 
-const StakeRewards: React.FC = () => {
+export const StakeRewards = () => {
     const account = useActiveAccount();
-    const [tokenBalance, setTokenBalance] = useState<string>("");
-    const [stakedInfo, setStakedInfo] = useState<any>(null);
 
-    const { refetch: refetchTokenBalance } = useReadContract<string>({
-        contract: REWARD_TOKEN_CONTRACT,
-        query: balanceOf,
-        args: [account?.address || ""],
-        onData: setTokenBalance,
-        pollInterval: 1000,
-    });
-
-    const { refetch: refetchStakedInfo } = useReadContract<any>({
+    const {
+        data: tokenBalance,
+        isLoading: isTokenBalanceLoading,
+        refetch: refetchTokenBalance,
+    } = useReadContract(
+        balanceOf,
+        {
+            contract: REWARD_TOKEN_CONTRACT,
+            owner: account?.address || "",
+        }
+    )
+    
+    const {
+        data: stakedInfo,
+        refetch: refetchStakedInfo,
+    } = useReadContract({
         contract: STAKING_CONTRACT,
         method: "getStakeInfo",
-        args: [account?.address || ""],
-        onData: setStakedInfo,
-        pollInterval: 1000,
+        params: [account?.address || ""],
     });
 
     useEffect(() => {
-        refetchTokenBalance();
         refetchStakedInfo();
-    }, [refetchTokenBalance, refetchStakedInfo]);
-
-    const handleClaimRewards = async () => {
-        try {
-            await prepareContractCall({
-                contract: STAKING_CONTRACT,
-                method: "claimRewards",
-            })();
-            alert("Rewards claimed!");
+        const interval = setInterval(() => {
             refetchStakedInfo();
-            refetchTokenBalance();
-        } catch (error) {
-            console.error("Error claiming rewards:", error);
+        }, 1000);
+        return () => clearInterval(interval);
+    }, []);
+
+    const formatBalance = (balance) => {
+        if (typeof balance !== 'undefined') {
+            return parseFloat(toEther(BigInt(balance.toString()))).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
+        return "";
     };
 
     return (
         <div style={{ width: "100%", margin: "20px 0", display: "flex", flexDirection: "column" }}>
-            {tokenBalance === "" ? (
-                <p>Loading token balance...</p>
-            ) : (
-                <p>Giraffe Balance: {toEther(BigInt(tokenBalance)).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+            {!isTokenBalanceLoading && (
+                <p>Giraffe Balance: {formatBalance(tokenBalance)}</p>
             )}
-            {!stakedInfo ? (
-                <p>Loading staked info...</p>
-            ) : (
-                <h2 style={{ marginBottom: "20px"}}>Giraffe Rewards: {toEther(BigInt(stakedInfo[1])).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</h2>
-            )}
+            <h2 style={{ marginBottom: "20px"}}>Giraffe Rewards: {stakedInfo && formatBalance(stakedInfo[1])}</h2>
             <TransactionButton
-                transaction={handleClaimRewards}
+                transaction={() => (
+                    prepareContractCall({
+                        contract: STAKING_CONTRACT,
+                        method: "claimRewards",
+                    })
+                )}
                 onTransactionConfirmed={() => {
                     alert("Rewards claimed!")
                     refetchStakedInfo();
@@ -84,5 +77,3 @@ const StakeRewards: React.FC = () => {
         </div>
     );
 };
-
-export default StakeRewards;
