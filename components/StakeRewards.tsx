@@ -11,26 +11,23 @@ import { balanceOf } from "thirdweb/extensions/erc721";
 
 const StakeRewards: React.FC = () => {
     const account = useActiveAccount();
-    const [tokenBalance, setTokenBalance] = useState<BigInt | null>(null);
+    const [tokenBalance, setTokenBalance] = useState<string>("");
     const [stakedInfo, setStakedInfo] = useState<any>(null);
 
-    // Fetch token balance
-    const { refetch: refetchTokenBalance } = useReadContract<BigInt>({
-        query: balanceOf,
+    const { refetch: refetchTokenBalance } = useReadContract<string>({
         contract: REWARD_TOKEN_CONTRACT,
-        owner: account?.address || "",
-        args: [],
-        pollInterval: 1000,
+        query: balanceOf,
+        args: [account?.address || ""],
         onData: setTokenBalance,
+        pollInterval: 1000,
     });
 
-    // Fetch staked info
     const { refetch: refetchStakedInfo } = useReadContract<any>({
         contract: STAKING_CONTRACT,
         method: "getStakeInfo",
         args: [account?.address || ""],
-        pollInterval: 1000,
         onData: setStakedInfo,
+        pollInterval: 1000,
     });
 
     useEffect(() => {
@@ -54,10 +51,10 @@ const StakeRewards: React.FC = () => {
 
     return (
         <div style={{ width: "100%", margin: "20px 0", display: "flex", flexDirection: "column" }}>
-            {!tokenBalance ? (
+            {tokenBalance === "" ? (
                 <p>Loading token balance...</p>
             ) : (
-                <p>Giraffe Balance: {toEther(tokenBalance).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
+                <p>Giraffe Balance: {toEther(BigInt(tokenBalance)).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
             )}
             {!stakedInfo ? (
                 <p>Loading staked info...</p>
