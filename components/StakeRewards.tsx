@@ -1,28 +1,21 @@
+import React, { useEffect } from "react";
 import { TransactionButton, useActiveAccount, useReadContract } from "thirdweb/react";
 import { REWARD_TOKEN_CONTRACT, STAKING_CONTRACT } from "../utils/contracts";
 import { prepareContractCall, toEther } from "thirdweb";
-import { useEffect } from "react";
 import { balanceOf } from "thirdweb/extensions/erc721";
 
-export const StakeRewards = () => {
+const StakeRewards = () => {
     const account = useActiveAccount();
 
-    const {
-        data: tokenBalance,
-        isLoading: isTokenBalanceLoading,
-        refetch: refetchTokenBalance,
-    } = useReadContract(
+    const { data: tokenBalance, isLoading: isTokenBalanceLoading, refetch: refetchTokenBalance } = useReadContract(
         balanceOf,
         {
             contract: REWARD_TOKEN_CONTRACT,
             owner: account?.address || "",
         }
-    )
+    );
     
-    const {
-        data: stakedInfo,
-        refetch: refetchStakedInfo,
-    } = useReadContract({
+    const { data: stakedInfo, refetch: refetchStakedInfo } = useReadContract({
         contract: STAKING_CONTRACT,
         method: "getStakeInfo",
         params: [account?.address || ""],
@@ -36,7 +29,7 @@ export const StakeRewards = () => {
         return () => clearInterval(interval);
     }, []);
 
-    const formatBalance = (balance) => {
+    const formatBalance = (balance: string | number | undefined) => {
         if (typeof balance !== 'undefined') {
             return parseFloat(toEther(BigInt(balance.toString()))).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
@@ -77,3 +70,5 @@ export const StakeRewards = () => {
         </div>
     );
 };
+
+export default StakeRewards;
