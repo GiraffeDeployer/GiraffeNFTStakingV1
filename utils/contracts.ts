@@ -5,7 +5,7 @@ import { stakingABI } from "./stakingABI";
 
 const nftContractAddress = "0xc0B5e71c51A1b39b47419B75F26A2492ee73d6F0";
 const rewardTokenContractAddress = "0x5E9aFBD222cBbc1ECF3e2cEc79eb94c761d6CA86";
-const stakingContractAddress = "0xec319CEAB5E52ee503516f7187c188E2eECec300";
+const stakingContractAddress = "0x0cB931c1c5df4c036F874F89335edeFD72E9F25F";
 
 export const NFT_CONTRACT = getContract({
     client: client,
